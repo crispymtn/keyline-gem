@@ -13,18 +13,8 @@ module Keyline
       @orders ||= Collection.new(-> { client.perform_request(:get, Keyline::Order.path) }, Keyline::Order)
     end
 
-
     def products
-
-
+      @products ||= Collection.new(-> { client.perform_request(:get, Keyline::Product.path) }, Keyline::Product)
     end
   end
-
-
-
-
-
-
-
-
 end

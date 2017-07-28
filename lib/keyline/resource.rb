@@ -1,22 +1,23 @@
 module Keyline
   module Resource
-    attr_accessor :attributes
+    attr_accessor :attributes, :parent
 
     module ClassMethods
       cattr_reader :associations
 
       def from_hash(data, parent = nil)
         associations = self.instance_variable_get(:@associations)
-        object = self.new(data.except(associations), parent)
+        resource = self.new(data.except(associations), parent)
 
         data.slice(*associations).each do |association, objects|
-          object.instance_variable_get(:@children)[association] = Collection.new(
-            -> { objects },
+          resource.instance_variable_get(:@children)[association] = Collection.new(
+            -> { Keyline.client.perform_request(:get, klass.path(self)) },
             "Keyline::#{association.singularize.capitalize}".constantize,
+            resource,
             objects)
         end
 
-        return object
+        return resource
       end
 
       def attributes(*attributes)
@@ -30,10 +31,10 @@ module Keyline
       def associations(*associations)
         @associations = associations.collect(&:to_s)
 
-        associations.each do |association|
+        @associations.each do |association|
           define_method association do
-            @children[association.to_s] ||= Collection.new(-> { objects },
-              "Keyline::#{association.singularize.capitalize}".constantize)
+            klass = "Keyline::#{association.singularize.capitalize}".constantize
+            @children[association.to_s] ||= Collection.new(-> { Keyline.client.perform_request(:get, klass.path(self)) }, klass, self)
           end
         end
       end
@@ -46,28 +47,43 @@ module Keyline
         end
       end
 
-      def path
-        "#{self.path_prefix}/#{self.to_s.demodulize.underscore.pluralize}"
+      def path(parent = nil)
+        self.new({}, parent).path
       end
     end
 
     def initialize(attributes = {}, parent = nil)
-      @attributes = attributes
+      raise Keyline::Errors::ResourceReadOnlyError.new unless self.class.include?(Writeable::Resource)
+
+      @attributes = attributes.stringify_keys!
       @parent = parent
       @children = {}
       @errors = []
     end
 
-    def parent
-      @parent
-    end
-
     def path
-      "#{self.class.path}/#{self.id}"
+      Array.new.tap do |segments|
+        segments << @parent.path if @parent && !self.class.path_prefix
+        segments << self.class.path_prefix if self.class.path_prefix
+        segments << self.class.to_s.demodulize.underscore.pluralize
+        segments << self.id if self.persisted?
+      end.join('/')
     end
 
+    # Provides a possiblity for the given resource
+    # to overwrite paths based on HTTP request used
+    alias_method :path_for_create, :path
+    alias_method :path_for_update, :path
+    alias_method :path_for_destroy, :path
+
+    # Only writeable resources cannot be persisted
+    def persisted?
+      true
+    end
+
+    # Only writable resources can be invalid
     def valid?
-      true # Only writable resources can be invalid
+      true
     end
   end
 end

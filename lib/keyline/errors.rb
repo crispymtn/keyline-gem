@@ -1,20 +1,29 @@
 module Keyline
+  class Error < Exception
+  end
+
   module Errors
-    class ResourceInvalidError < Exception
+    class ResourceInvalidError < Error
       attr_accessor :validation_errors
 
       def initialize(payload)
-        @validation_errors = payload
+        @validation_errors = payload['errors']
       end
     end
 
-    class RemoteServerError < Exception
+    class BadRequestError < Error
     end
 
-    class ResourceNotFoundError < Exception
+    class RemoteServerError < Error
     end
 
-    class ParentNotPersistedError < Exception
-    end 
+    class ResourceNotFoundError < Error
+    end
+
+    class ParentNotPersistedError < Error
+    end
+
+    class ResourceReadOnlyError < Error
+    end
   end
 end

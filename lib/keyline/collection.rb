@@ -29,9 +29,11 @@ module Keyline
       objects[index]
     end
 
-    def reload
+    def reload!
       @prefetched_objects = nil
       @retrieved = false
+      @objects = objects
+      self
     end
 
     def each(&block)

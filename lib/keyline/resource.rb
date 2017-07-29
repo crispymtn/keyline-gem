@@ -12,7 +12,7 @@ module Keyline
         data.slice(*associations).each do |association, objects|
           resource.instance_variable_get(:@children)[association] = Collection.new(
             -> { Keyline.client.perform_request(:get, klass.path(self)) },
-            "Keyline::#{association.singularize.capitalize}".constantize,
+            "Keyline::#{association.classify}".constantize,
             resource,
             objects)
         end
@@ -33,7 +33,7 @@ module Keyline
 
         @associations.each do |association|
           define_method association do
-            klass = "Keyline::#{association.singularize.capitalize}".constantize
+            klass = "Keyline::#{association.classify}".constantize
             @children[association.to_s] ||= Collection.new(-> { Keyline.client.perform_request(:get, klass.path(self)) }, klass, self)
           end
         end

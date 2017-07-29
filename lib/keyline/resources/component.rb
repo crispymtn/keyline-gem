@@ -5,8 +5,8 @@ module Keyline
     extend  Resource::ClassMethods
     extend  Writeable::Resource::ClassMethods
 
-    attributes :name, :number_of_pages, :closed_dimensions, :page_arrangement
-    writeable_attributes :name, :number_of_pages, :closed_dimensions, :page_arrangement
-    associations :finishings
+    attributes :name, :number_of_pages, :closed_dimensions, :page_arrangement, :front_colors, :back_colors
+    writeable_attributes :name, :number_of_pages, :closed_dimensions, :page_arrangement, :front_colors, :back_colors
+    associations :finishings, :production_junctions
   end
 end

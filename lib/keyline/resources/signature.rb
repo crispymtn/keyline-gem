@@ -1,12 +1,11 @@
 module Keyline
-  class Finishing
+  class Signature
     include Resource
     include Writeable::Resource
     extend  Resource::ClassMethods
     extend  Writeable::Resource::ClassMethods
 
-    attributes :stock_finishing_id, :kind
-    writeable_attributes :stock_finishing_id
-    associations :finishing_properties
+    attributes :name, :pages
+    writeable_attributes :name, :pages
   end
 end

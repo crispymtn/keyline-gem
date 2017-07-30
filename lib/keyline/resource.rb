@@ -10,11 +10,11 @@ module Keyline
         resource = self.new(data.except(associations), parent)
 
         data.slice(*associations).each do |association, objects|
+          klass = "Keyline::#{association.classify}".constantize
+
           resource.instance_variable_get(:@children)[association] = Collection.new(
             -> { Keyline.client.perform_request(:get, klass.path(self)) },
-            "Keyline::#{association.classify}".constantize,
-            resource,
-            objects)
+            klass, resource, objects)
         end
 
         return resource

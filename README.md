@@ -26,7 +26,7 @@ Now that you have the Keyline gem installed, you can use it to connect to your K
 
 ```ruby
 # Explicitly set an API token
-Keyline.client.api_key = 'YOUR API KEY GOES HERE'
+Keyline.client.token = 'YOUR API KEY GOES HERE'
 ```
 
 And let's create an order with a product that has a component. Also the product will have a finishing with some params we need to adjust.

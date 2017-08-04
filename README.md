@@ -9,7 +9,7 @@ TODO: Delete this and the text above, and describe your gem
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'keyline'
+gem 'keyline', github: 'crispymtn/keyline-gem'
 ```
 
 And then execute:
@@ -22,7 +22,31 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Now that you have the Keyline gem installed, you can use it to connect to your Keyline account. First you need to setup your API Key, this can be done explicitly or implicitly, by setting the ENV variable KEYLINE_API_TOKEN or by adding keyline_api_token to Rails' secrets.yml file in the config dir.
+
+```ruby
+# Explicitly set an API token
+Keyline.client.api_key = 'YOUR API KEY GOES HERE'
+```
+
+And let's create an order with a product that has a component. Also the product will have a finishing with some params we need to adjust.
+
+```ruby
+# Create the order
+order = Keyline.orders.create(customer_id: 1337)
+
+# Add a empty product
+product = order.products.create(name: 'New product', category: 'book')
+
+# Add a component to the product
+product.components.create(name: 'Contents', closed_dimensions: [297, 210], front_colors: ['CMYK/Black'], back_colors: ['CMYK/Black, Pantone/501'])
+
+# Lets add a finishing to the product (also possible with components)
+finishing = product.finishings.create(stock_finishing_id: 12)
+
+# And change the property's value
+finishing.finishing_properties.select { |fp| fp.key == 'beidseitig' }.first.update_attributes(value: true)
+```
 
 ## Development
 

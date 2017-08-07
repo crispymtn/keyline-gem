@@ -45,7 +45,11 @@ product.components.create(name: 'Contents', closed_dimensions: [297, 210], front
 finishing = product.finishings.create(stock_finishing_id: 12)
 
 # And change the property's value
-finishing.finishing_properties.select { |fp| fp.key == 'beidseitig' }.first.update_attributes(value: true)
+# We use the find_by method provided with each Keyline::Collection to find the
+# property we want. Please not that where and find by will currently only search
+# collections that have been loaded, it will not query the server. Especially with
+# pagination (100+ objects) this means that you might miss objects matching your criteria.
+finishing.finishing_properties.find_by(key: 'beidseitig').update_attributes(value: true)
 ```
 
 ## Development

@@ -1,6 +1,7 @@
 module Keyline
   class Collection
     include Enumerable
+    include Finders
     include Writeable::Collection
 
     def initialize(retrieval_proc, resource_klass, owner = nil, prefetched_objects = nil)
@@ -18,9 +19,18 @@ module Keyline
     def objects
       return @objects if @retrieved
 
-      data = @prefetched_objects ? @prefetched_objects : @retrieval_proc.call
-      @objects = data.collect { |o| @resource_klass.from_hash(o, @owner) }
+      data = if @owner && !@owner.persisted?
+        @objects = []
+
+      elsif @prefetched_objects
+        @objects = @prefetched_objects
+
+      else
+        @retrieval_proc.call
+      end
+
       @retrieved = true
+      @objects = data.collect { |o| @resource_klass.from_hash(o, @owner) }
 
       return @objects
     end
@@ -30,6 +40,10 @@ module Keyline
     end
 
     def reload!
+      # Don't try to reload collections from owners
+      # that are not persisted yet
+      return self unless @owner.persisted?
+
       @prefetched_objects = nil
       @retrieved = false
       @objects = objects

@@ -1,9 +1,11 @@
 require 'keyline/connection'
 require 'keyline/writeable'
 require 'keyline/resource'
+require 'keyline/finders'
 require 'keyline/collection'
 require 'keyline/errors'
 
+require 'keyline/resources/printery'
 require 'keyline/resources/order'
 require 'keyline/resources/print_data_file'
 require 'keyline/resources/print_data_erratum'

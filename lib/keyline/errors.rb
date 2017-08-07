@@ -11,6 +11,9 @@ module Keyline
       end
     end
 
+    class UnknownAttributeError < Error
+    end
+
     class BadRequestError < Error
     end
 

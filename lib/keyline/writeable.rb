@@ -8,7 +8,9 @@ module Keyline
       end
 
       def build(attributes = {})
-        @resource_klass.new(attributes, @owner)
+        @resource_klass.new(attributes, @owner).tap do |new_object|
+          self.objects << new_object
+        end
       end
     end
 

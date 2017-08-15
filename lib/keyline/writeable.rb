@@ -15,7 +15,7 @@ module Keyline
     end
 
     module Resource
-      attr_accessor :errors
+      attr_reader :errors
 
       module ClassMethods
         def writeable_attributes(*attributes)
@@ -34,8 +34,12 @@ module Keyline
 
       def create
         self.attributes = Keyline.client.perform_request(:post, self.path_for_create, payload: attributes_for_write)
+        clear_errors
         return true
 
+      rescue Keyline::Errors::BadRequestError => e
+        @errors = e.missing_parameters.nil? ? e.raw_payload : e.missing_parameters
+        return false
       rescue Keyline::Errors::ResourceInvalidError => e
         @errors = e.validation_errors
         return false
@@ -43,8 +47,12 @@ module Keyline
 
       def update
         self.attributes = Keyline.client.perform_request(:patch, self.path_for_update, payload: attributes_for_write)
+        clear_errors
         return true
 
+      rescue Keyline::Errors::BadRequestError => e
+        @errors = e.missing_parameters.nil? ? e.raw_payload : e.missing_parameters
+        return false
       rescue Keyline::Errors::ResourceInvalidError => e
         @errors = e.validation_errors
         return false
@@ -52,6 +60,7 @@ module Keyline
 
       def destroy
         Keyline.client.perform_request(:delete, self.path_for_destroy)
+        clear_errors
         attributes['id'] = nil
         return true
       end
@@ -73,8 +82,8 @@ module Keyline
       end
 
     private
-      def build_errors(response)
-        @errors = JSON.parse(response)
+      def clear_errors
+        @errors = []
       end
 
       def attributes_for_write

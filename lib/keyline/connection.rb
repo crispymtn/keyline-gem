@@ -26,7 +26,7 @@ module Keyline
         end
       else
         case response.status
-        when 400 then raise Keyline::Errors::BadRequestError.new
+        when 400 then raise Keyline::Errors::BadRequestError.new(JSON.parse(response.body))
         when 404 then raise Keyline::Errors::ResourceNotFoundError.new
         when 422 then raise Keyline::Errors::ResourceInvalidError.new(JSON.parse(response.body))
         when 500 then raise Keyline::Errors::RemoteServerError.new

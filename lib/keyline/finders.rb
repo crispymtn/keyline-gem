@@ -4,12 +4,13 @@ module Keyline
       matching_objects = objects
 
       attributes.each_pair do |attribute, value|
-        begin
-          matching_objects.select! { |o| o.send(attribute) == value }
-
-        rescue NoMethodError
-          raise Keyline::Errors::UnknownAttributeError,
-            "Attribute #{attribute} is not defined for #{o.class}"
+        matching_objects.select! do |obj|
+          begin
+            obj.send(attribute) == value
+          rescue NoMethodError
+            raise Keyline::Errors::UnknownAttributeError,
+              "Attribute #{attribute} is not defined for #{obj.class}"
+          end
         end
       end
 

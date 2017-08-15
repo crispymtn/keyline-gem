@@ -42,7 +42,7 @@ module Keyline
     def reload!
       # Don't try to reload collections from owners
       # that are not persisted yet
-      return self unless @owner.persisted?
+      return self unless @owner && @owner.persisted?
 
       @prefetched_objects = nil
       @retrieved = false

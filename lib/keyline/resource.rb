@@ -13,7 +13,7 @@ module Keyline
           klass = "Keyline::#{association.classify}".constantize
 
           resource.instance_variable_get(:@children)[association] = Collection.new(
-            -> { Keyline.client.perform_request(:get, klass.path(self)) },
+            -> { Keyline.client.perform_request(:get, klass.path_for_index(self)) },
             klass, resource, objects)
         end
 
@@ -34,7 +34,7 @@ module Keyline
         @associations.each do |association|
           define_method association do
             klass = "Keyline::#{association.classify}".constantize
-            @children[association.to_s] ||= Collection.new(-> { Keyline.client.perform_request(:get, klass.path(self)) }, klass, self)
+            @children[association.to_s] ||= Collection.new(-> { Keyline.client.perform_request(:get, klass.path_for_index(self)) }, klass, self)
           end
         end
       end
@@ -45,6 +45,10 @@ module Keyline
         else
           @prefix
         end
+      end
+
+      def path_for_index(parent = nil)
+        self.new({}, parent).path_for_index
       end
 
       def path(parent = nil)
@@ -72,6 +76,7 @@ module Keyline
 
     # Provides a possiblity for the given resource
     # to overwrite paths based on HTTP request used
+    alias_method :path_for_index, :path
     alias_method :path_for_create, :path
     alias_method :path_for_update, :path
     alias_method :path_for_destroy, :path

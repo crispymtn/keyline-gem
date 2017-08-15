@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "keyline"
+
+Keyline.client(host: 'http://keyline.dev', token: '8cad2674e47403b75a84890985f027e2ac6e897a69109074a37919bf4e2b48cc')
+
+require "pry"
+Pry.start

@@ -8,7 +8,7 @@ module Keyline
     path_prefix :conception
     attributes :reference, :name, :kind
     writeable_attributes :name, :kind
-    associations :components, :finishings, :production_paths, :packagings, :print_data_files
+    associations :components, :finishings, :production_paths, :packagings, :print_data_files, :variants
 
     def path_for_create
       "sales/orders/#{self.parent&.id}/products"

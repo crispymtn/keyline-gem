@@ -21,6 +21,8 @@ require 'keyline/resources/signature'
 require 'keyline/resources/component'
 require 'keyline/resources/finishing'
 require 'keyline/resources/finishing_property'
+require 'keyline/resources/variant'
+require 'keyline/resources/circulation'
 
 module Keyline
   class Client

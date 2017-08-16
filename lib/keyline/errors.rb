@@ -5,6 +5,10 @@ module Keyline
     def initialize(payload)
       @raw_payload = payload
     end
+
+    def to_s
+      "#{super} - #{@raw_payload}"
+    end
   end
 
   module Errors

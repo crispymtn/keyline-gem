@@ -39,6 +39,10 @@ module Keyline
       objects[index]
     end
 
+    def length
+      objects.length
+    end
+
     def reload!
       # Don't try to reload collections from owners
       # that are not persisted yet

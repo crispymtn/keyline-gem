@@ -1,3 +1,5 @@
+require 'vendor/box'
+
 require 'keyline/connection'
 require 'keyline/writeable'
 require 'keyline/resource'

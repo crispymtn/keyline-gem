@@ -5,7 +5,11 @@ module Keyline
     extend  Resource::ClassMethods
     extend  Writeable::Resource::ClassMethods
 
-    attributes :name, :pages
-    writeable_attributes :name, :pages
+    attributes :name, :pages, :layout
+    writeable_attributes :name, :pages, :layout
+
+    def box
+      @box ||= Box.from_json(@layout)
+    end
   end
 end

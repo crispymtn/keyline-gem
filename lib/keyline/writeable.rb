@@ -40,7 +40,8 @@ module Keyline
 
       def update
         perform_request do
-          self.attributes = Keyline.client.perform_request(:patch, self.path_for_update, payload: attributes_for_write)
+          # PATCH requests usually return 204 No Content, so don't assign the response to attributes
+          Keyline.client.perform_request(:patch, self.path_for_update, payload: attributes_for_write)
         end
       end
 

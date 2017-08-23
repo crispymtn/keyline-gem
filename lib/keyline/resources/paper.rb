@@ -10,5 +10,11 @@ module Keyline
       :texture, :color, :automatically_selected
 
     writeable_attributes :stock_paper_id, :precut_dimensions
+
+    def path_for_create
+      # paper is a singleton resource, but path always assumes it's a collection,
+      # so we chop of the 's' at the end
+      super[0..-2]
+    end
   end
 end

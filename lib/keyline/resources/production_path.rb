@@ -12,6 +12,7 @@ module Keyline
 
     writeable_attributes :selected_for_production, :show_in_offer, :total, :margin, :discount, :outsourced,
       :keep_total, :margin_stepping
+      
     associations :circulations
   end
 end

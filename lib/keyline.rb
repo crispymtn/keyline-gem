@@ -5,7 +5,11 @@ require 'keyline/client'
 module Keyline
   class << self
     def client(options = {})
-      @client ||= Keyline::Client.new(options)
+      if options.any?
+        @client = Keyline::Client.new(options)
+      else
+        @client ||= Keyline::Client.new(options)
+      end
     end
 
     def orders

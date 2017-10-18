@@ -26,6 +26,8 @@ require 'keyline/resources/finishing_property'
 require 'keyline/resources/variant'
 require 'keyline/resources/circulation'
 require 'keyline/resources/paper'
+require 'keyline/resources/stock_finishing'
+
 
 module Keyline
   class Client

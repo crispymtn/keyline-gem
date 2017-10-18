@@ -39,6 +39,17 @@ module Keyline
         end
       end
 
+      def singleton_associations(*associations)
+        @singleton_associations = singleton_associations.collect(&:to_s)
+
+        @singleton_associations.each do |association|
+          define_method association do
+            klass = "Keyline::#{association.classify}".constantize
+            @children[association.to_s] ||= Collection.new(-> { Keyline.client.perform_request(:get, klass.path_for_index(self)) }, klass, self)
+          end
+        end
+      end
+
       def path_prefix(prefix = nil)
         if prefix
           @prefix = prefix.to_s
@@ -57,8 +68,6 @@ module Keyline
     end
 
     def initialize(attributes = {}, parent = nil)
-      raise Keyline::Errors::ResourceReadOnlyError.new unless self.class.include?(Writeable::Resource)
-
       @attributes = attributes.stringify_keys!
       @parent = parent
       @children = {}

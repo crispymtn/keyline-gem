@@ -84,7 +84,7 @@ module Keyline
     end
 
     # Provides a possiblity for the given resource
-    # to overwrite paths based on HTTP request used
+    # to overwrite paths based on HTTP verb
     alias_method :path_for_index, :path
     alias_method :path_for_create, :path
     alias_method :path_for_update, :path

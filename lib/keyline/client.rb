@@ -29,6 +29,7 @@ require 'keyline/resources/paper'
 require 'keyline/resources/material_quote'
 require 'keyline/resources/stock_finishing'
 require 'keyline/resources/stock_paper'
+require 'keyline/resources/stock_product'
 
 module Keyline
   class Client

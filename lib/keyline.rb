@@ -23,5 +23,13 @@ module Keyline
     def stock_papers
       @stock_papers ||= Collection.new(-> { client.perform_request(:get, Keyline::StockPaper.path) }, Keyline::StockPaper)
     end
+
+    def stock_finishings
+      @stock_finishings ||= Collection.new(-> { client.perform_request(:get, Keyline::StockFinishing.path) }, Keyline::StockFinishing)
+    end
+
+    def stock_products
+      @stock_products ||= Collection.new(-> { client.perform_request(:get, Keyline::StockProduct.path) }, Keyline::StockProduct)
+    end
   end
 end

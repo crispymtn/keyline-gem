@@ -7,6 +7,8 @@ module Keyline
 
     attributes :name, :number_of_pages, :closed_dimensions, :page_arrangement, :front_colors, :back_colors
     writeable_attributes :name, :number_of_pages, :closed_dimensions, :page_arrangement, :front_colors, :back_colors
-    associations :finishings, :production_junctions, :print_data_files, :stock_finishings
+
+    associations :finishings, :production_junctions, :print_data_files,
+      :stock_finishings, :desired_paper_properties
   end
 end

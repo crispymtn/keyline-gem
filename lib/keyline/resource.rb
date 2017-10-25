@@ -34,18 +34,16 @@ module Keyline
         @associations.each do |association|
           define_method association do
             klass = "Keyline::#{association.classify}".constantize
-            @children[association.to_s] ||= Collection.new(-> { Keyline.client.perform_request(:get, klass.path_for_index(self)) }, klass, self)
-          end
-        end
-      end
 
-      def singleton_associations(*associations)
-        @singleton_associations = singleton_associations.collect(&:to_s)
-
-        @singleton_associations.each do |association|
-          define_method association do
-            klass = "Keyline::#{association.classify}".constantize
-            @children[association.to_s] ||= Collection.new(-> { Keyline.client.perform_request(:get, klass.path_for_index(self)) }, klass, self)
+            # Singleton resources will have different accessors than
+            # collection resources, since they return the resource
+            # right away, whereas collection resources return a collection
+            # proxy object with lazy loading
+            @children[association.to_s] ||= if klass.singleton?
+              klass.new(Keyline.client.perform_request(:get, klass.path_for_show(self)), self)
+            else
+              Collection.new(-> { Keyline.client.perform_request(:get, klass.path_for_index(self)) }, klass, self)
+            end
           end
         end
       end
@@ -62,8 +60,16 @@ module Keyline
         self.new({}, parent).path_for_index
       end
 
+      def path_for_show(parent = nil)
+        self.new({}, parent).path_for_show
+      end
+
       def path(parent = nil)
         self.new({}, parent).path
+      end
+
+      def singleton?
+        self.included_modules.include?(Keyline::SingletonResource)
       end
     end
 
@@ -85,9 +91,10 @@ module Keyline
 
     # Provides a possiblity for the given resource
     # to overwrite paths based on HTTP verb
-    alias_method :path_for_index, :path
-    alias_method :path_for_create, :path
-    alias_method :path_for_update, :path
+    alias_method :path_for_index,   :path
+    alias_method :path_for_show,    :path
+    alias_method :path_for_create,  :path
+    alias_method :path_for_update,  :path
     alias_method :path_for_destroy, :path
 
     # Only writeable resources cannot be persisted

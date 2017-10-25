@@ -6,8 +6,8 @@ module Keyline
     extend  Writeable::Resource::ClassMethods
 
     path_prefix :conception
-    attributes :reference, :name, :kind
-    writeable_attributes :name, :kind
+    attributes :stock_product_id, :reference, :name, :kind
+    writeable_attributes :stock_product_id, :name, :kind
     associations :components, :finishings, :production_paths, :packagings, :print_data_files, :variants, :stock_finishings
 
     def path_for_create

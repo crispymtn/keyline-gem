@@ -7,20 +7,22 @@ require 'csv'
 
 class PaperImport
 
-  def initialize
-    Keyline.client(host: KEYLINE_API_HOST, token: KEYLINE_API_TOKEN)
+  def initialize(input_file:, host:, token:)
+    Keyline.client(host: host, token: token)
     raise ArgumentError.new("Could not connect to Keyline!\n\n"+ help_message) unless Keyline.connection_valid?
 
-    @printery = Keyline.printery
-    @errors = []
+    @host        = host
+    @input_file  = input_file
+    @printery    = Keyline.printery
+    @errors      = []
     @parsed_rows = 0
   end
 
   def perform_import!
-    puts "Starting import of '#{INPUT_FILE}' intro printery '#{@printery.name}' on system #{KEYLINE_API_HOST}"
+    puts "Starting import of '#{@input_file}' intro printery '#{@printery.name}' on system #{@host}"
     puts "---------------------------------------------------------------------------------------------------"
 
-    CSV.foreach(INPUT_FILE, col_sep: ';', headers: true) do |row|
+    CSV.foreach(@input_file, col_sep: ';', headers: true) do |row|
       @parsed_rows += 1
       paper_data = parse_data_from_row(row).reject { |c| c.blank? }
       create_paper(paper_data)
@@ -93,10 +95,12 @@ end
 if ARGV.size == 0
   puts help_message
 else
-  INPUT_FILE            = ARGV[0]
-  KEYLINE_API_TOKEN     = ARGV[1] || ENV['KEYLINE_API_TOKEN']
-  KEYLINE_API_HOST      = ARGV[2] || ENV['KEYLINE_API_HOST'] || 'http://keyline.dev'
+  input_file            = ARGV[0]
+  keyline_api_token     = ARGV[1] || ENV['KEYLINE_API_TOKEN']
+  keyline_api_host      = ARGV[2] || ENV['KEYLINE_API_HOST'] || 'http://keyline.dev'
 
-  PaperImport.new.perform_import!.report
+  PaperImport.new(input_file: input_file, host: keyline_api_host, token: keyline_api_token)
+    .perform_import!
+    .report
 end
 

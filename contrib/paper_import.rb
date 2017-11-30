@@ -29,6 +29,9 @@ class PaperImport
     end
 
     self
+  rescue Keyline::Errors::ForbiddenError => e
+    puts "INVALID API CREDENTIALS"
+    raise e  # Can't recover from this, so just re-raise
   end
 
   def report
@@ -41,21 +44,15 @@ class PaperImport
 
 private
   def create_paper(paper_data)
-    begin
-      paper = Keyline.stock_papers.create(paper_data)
-
+    Keyline.stock_papers.create(paper_data).tap do |paper|
       if paper.errors.any?
         @errors << { row: @parsed_rows, data: paper_data, error: paper.errors }
       else
         puts "Created StockPaper from row:#{@parsed_rows} with name:#{paper.name}, id:#{paper.id}, material_id:#{paper.material_id}"
       end
-
-    rescue Keyline::Errors::ForbiddenError => e
-      puts "INVALID API CREDENTIALS"
-      raise e  # Can't recover from this, so just re-raise
-    rescue Keyline::Error => e
-      @errors << { row: @parsed_rows, data: paper_data, error: e }
     end
+  rescue Keyline::Error => e
+    @errors << { row: @parsed_rows, data: paper_data, error: e }
   end
 
   def parse_data_from_row(row)

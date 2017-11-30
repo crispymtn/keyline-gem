@@ -33,6 +33,9 @@ module Keyline
       end
     end
 
+    class ForbiddenError < Error
+    end
+
     class RemoteServerError < Error
     end
 

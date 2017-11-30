@@ -3,8 +3,8 @@
 require "bundler/setup"
 require "keyline"
 
-if ENV.has_key?('KEYLINE_API_HOST') && ENV.has_key?('KEYLINE_ACCESS_TOKEN')
-  Keyline.client(host: ENV['KEYLINE_API_HOST'], token: ENV['KEYLINE_ACCESS_TOKEN'])
+if ENV.has_key?('KEYLINE_API_HOST') && ENV.has_key?('KEYLINE_API_TOKEN')
+  Keyline.client(host: ENV['KEYLINE_API_HOST'], token: ENV['KEYLINE_API_TOKEN'])
 end
 
 require "pry"

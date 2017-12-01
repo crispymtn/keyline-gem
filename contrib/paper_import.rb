@@ -25,11 +25,12 @@ class PaperImport
 
     CSV.foreach(@input_file, col_sep: ';', headers: true) do |row|
       @parsed_rows += 1
+
       paper_data = parse_paper_data_from_row(row)
       quote_data = parse_quote_data_from_row(row)
-      if paper = create_paper(paper_data)
-        create_quote(quote_data.merge({ material_id: paper.material_id }))
-      end
+
+      paper = create_paper(paper_data)
+      create_quote(paper, quote_data) if paper.errors.empty?
     end
 
     self
@@ -82,8 +83,8 @@ private
     }.reject { |c| c.blank? }
   end
 
-  def create_quote(quote_data)
-    Keyline::MaterialQuote.create(quote_data).tap do |quote|
+  def create_quote(paper, quote_data)
+    Keyline.materials.find(paper.material_id).material_quotes.create(quote_data).tap do |quote|
       if quote.errors.any?
         @errors << { row: @parsed_rows, data: quote_data, error: quote.errors }
       else
@@ -96,16 +97,19 @@ private
 
   def parse_quote_data_from_row(row)
     supplier_id            = row[9]
-    amount                 = row[10]
-    unit                   = row[11]
-    minimum_order_quantity = row[12]
+    price                  = row[10] ? row[10].to_f : nil
+    unit                   = row[11] ? row[11].to_i : nil
+    minimum_order_quantity = row[12] ? row[12].to_i : nil
     order_number           = row[5].try(:strip)
+
+    # MaterialQuote.amount is stored in Cent/Pence (aka smallest unit of respective currency)
+    price = (price && unit && minimum_order_quantity) ? (price = price / unit * minimum_order_quantity) / 100 : nil
 
     {
       supplier_id:            supplier_id ? supplier_id.to_i : nil,
-      amount:                 amount ? amount.to_f : nil,
-      unit:                   unit ? unit.to_i : nil,
-      minimum_order_quantity: minimum_order_quantity ? minimum_order_quantity.to_i : nil,
+      amount:                 price,
+      unit:                   unit,
+      minimum_order_quantity: minimum_order_quantity,
       order_number:           order_number
     }.reject { |c| c.blank? }
   end

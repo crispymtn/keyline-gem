@@ -96,19 +96,23 @@ private
   end
 
   def parse_quote_data_from_row(row)
+    order_number           = row[5].try(:strip)
     supplier_id            = row[9]
     price                  = row[10] ? row[10].to_f : nil
-    unit                   = row[11] ? row[11].to_i : nil
+    contract_unit          = row[11] ? row[11].to_i : nil
     minimum_order_quantity = row[12] ? row[12].to_i : nil
-    order_number           = row[5].try(:strip)
 
-    # MaterialQuote.amount is stored in Cent/Pence (aka smallest unit of respective currency)
-    price = (price && unit && minimum_order_quantity) ? (price = price / unit * minimum_order_quantity) / 100 : nil
+    # MaterialQuote.amount is the price per SKU (aka minimum_order_quantity)
+    # and stored in Cent/Pence (aka smallest unit of respective currency)
+    if price && contract_unit && minimum_order_quantity
+      price = (price / contract_unit * minimum_order_quantity) * 100
+    else
+      price = nil
+    end
 
     {
       supplier_id:            supplier_id ? supplier_id.to_i : nil,
       amount:                 price,
-      unit:                   unit,
       minimum_order_quantity: minimum_order_quantity,
       order_number:           order_number
     }.reject { |c| c.blank? }

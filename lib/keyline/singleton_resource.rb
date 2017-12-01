@@ -6,8 +6,12 @@ module Keyline
       Array.new.tap do |segments|
         segments << @parent.path if @parent && !self.class.path_prefix
         segments << self.class.path_prefix if self.class.path_prefix
-        segments << self.class.to_s.demodulize.underscore
+        segments << self.name_in_path
       end.join('/')
+    end
+
+    def name_in_path
+      self.class.to_s.demodulize.underscore
     end
 
     alias_method :path_for_show,    :path

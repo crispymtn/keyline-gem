@@ -68,6 +68,10 @@ module Keyline
         @attributes.slice(*self.class.instance_methods.grep(/[a-z]+=/).collect { |a| a.to_s[0..-2] })
       end
 
+      def name_in_params
+        self.class.to_s.demodulize.underscore
+      end
+
     private
       def perform_request(&block)
         block.call
@@ -90,7 +94,7 @@ module Keyline
         # Consider all attribute= functoins as writable
         # attributes that need to be send over the wire
         {
-          self.class.to_s.demodulize.underscore => self.writeable_attributes
+          self.name_in_params => self.writeable_attributes
         }
       end
     end

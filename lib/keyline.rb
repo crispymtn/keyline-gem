@@ -20,6 +20,10 @@ module Keyline
       @printery ||= Keyline::Printery.new(client.perform_request(:get, Keyline::Printery.path))
     end
 
+    def materials
+      @materials ||= Collection.new(-> { client.perform_request(:get, Keyline::Material.path) }, Keyline::Material)
+    end
+
     def orders
       @orders ||= Collection.new(-> { client.perform_request(:get, Keyline::Order.path) }, Keyline::Order)
     end

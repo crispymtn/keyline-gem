@@ -84,9 +84,13 @@ module Keyline
       Array.new.tap do |segments|
         segments << @parent.path if @parent && !self.class.path_prefix
         segments << self.class.path_prefix if self.class.path_prefix
-        segments << self.class.to_s.demodulize.underscore.pluralize
+        segments << self.name_in_path
         segments << self.id if self.persisted?
       end.join('/')
+    end
+
+    def name_in_path
+      self.class.to_s.demodulize.underscore.pluralize
     end
 
     # Provides a possiblity for the given resource

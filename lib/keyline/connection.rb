@@ -12,9 +12,10 @@ module Keyline
 
     def perform_request(method, url, options = {})
       connection = Faraday.new
+      request_url = "#{@host}#{@base_uri}#{url}"
       response = connection.send(method) do |request|
         set_headers(request)
-        request.url "#{@host}#{@base_uri}#{url}"
+        request.url(request_url)
         request.body = options[:payload].to_json if options.has_key?(:payload)
       end
 
@@ -28,7 +29,7 @@ module Keyline
         case response.status
         when 400 then raise Keyline::Errors::BadRequestError.new(JSON.parse(response.body))
         when 403 then raise Keyline::Errors::ForbiddenError.new('')
-        when 404 then raise Keyline::Errors::ResourceNotFoundError.new(response.body)
+        when 404 then raise Keyline::Errors::ResourceNotFoundError.new(request_url)
         when 422 then raise Keyline::Errors::ResourceInvalidError.new(JSON.parse(response.body))
         when 500 then raise Keyline::Errors::RemoteServerError.new(response.body)
         end

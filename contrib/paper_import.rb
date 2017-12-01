@@ -19,13 +19,17 @@ class PaperImport
   end
 
   def perform_import!
+    puts "---------------------------------------------------------------------------------------------------"
     puts "Starting import of '#{@input_file}' intro printery '#{@printery.name}' on system #{@host}"
     puts "---------------------------------------------------------------------------------------------------"
 
     CSV.foreach(@input_file, col_sep: ';', headers: true) do |row|
       @parsed_rows += 1
-      paper_data = parse_data_from_row(row).reject { |c| c.blank? }
-      create_paper(paper_data)
+      paper_data = parse_paper_data_from_row(row)
+      quote_data = parse_quote_data_from_row(row)
+      if paper = create_paper(paper_data)
+        create_quote(quote_data.merge({ material_id: paper.material_id }))
+      end
     end
 
     self
@@ -55,7 +59,7 @@ private
     @errors << { row: @parsed_rows, data: paper_data, error: e }
   end
 
-  def parse_data_from_row(row)
+  def parse_paper_data_from_row(row)
     name         = row[0].try(:strip).try(:gsub, /\s{2,}/, ' ').downcase.titleize
     color        = row[1]
     height       = row[2].try(:tr, ',', '.').try(:to_f)
@@ -75,7 +79,35 @@ private
       kind:                        kind,
       grain:                       grain,
       thickness:                   thickness
-    }
+    }.reject { |c| c.blank? }
+  end
+
+  def create_quote(quote_data)
+    Keyline::MaterialQuote.create(quote_data).tap do |quote|
+      if quote.errors.any?
+        @errors << { row: @parsed_rows, data: quote_data, error: quote.errors }
+      else
+        puts "Created MaterialQuote from row:#{@parsed_rows} with material_id:#{quote.material_id}, supplier_id:#{quote.supplier_id}, amount:#{quote.amount}"
+      end
+    end
+  rescue Keyline::Error => e
+    @errors << { row: @parsed_rows, data: quote_data, error: e }
+  end
+
+  def parse_quote_data_from_row(row)
+    supplier_id            = row[9]
+    amount                 = row[10]
+    unit                   = row[11]
+    minimum_order_quantity = row[12]
+    order_number           = row[5].try(:strip)
+
+    {
+      supplier_id:            supplier_id ? supplier_id.to_i : nil,
+      amount:                 amount ? amount.to_f : nil,
+      unit:                   unit ? unit.to_i : nil,
+      minimum_order_quantity: minimum_order_quantity ? minimum_order_quantity.to_i : nil,
+      order_number:           order_number
+    }.reject { |c| c.blank? }
   end
 end
 

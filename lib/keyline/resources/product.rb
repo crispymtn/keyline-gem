@@ -2,9 +2,7 @@ module Keyline
   class Product
     include Resource
     include Writeable::Resource
-    extend  Resource::ClassMethods
-    extend  Writeable::Resource::ClassMethods
-
+  
     path_prefix :conception
     attributes :stock_product_id, :reference, :name, :kind
     writeable_attributes :stock_product_id, :name, :kind

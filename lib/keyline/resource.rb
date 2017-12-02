@@ -1,6 +1,11 @@
 module Keyline
   module Resource
+    extend ActiveSupport::Concern
     attr_accessor :attributes, :parent
+
+    included do
+      extend Resource::ClassMethods
+    end
 
     module ClassMethods
       cattr_reader :associations

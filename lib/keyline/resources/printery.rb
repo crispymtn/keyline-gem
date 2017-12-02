@@ -1,7 +1,6 @@
 module Keyline
   class Printery
-    include SingletonResource
-    extend  Resource::ClassMethods
+    include Resource
 
     path_prefix :configuration
 

@@ -15,6 +15,12 @@ module Keyline
     end
 
     module Resource
+      extend ActiveSupport::Concern
+
+      included do
+        extend Writeable::Resource::ClassMethods
+      end
+
       attr_reader :errors
 
       module ClassMethods

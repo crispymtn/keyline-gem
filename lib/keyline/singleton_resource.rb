@@ -1,10 +1,7 @@
 module Keyline
   module SingletonResource
     extend ActiveSupport::Concern
-
-    included do
-      include Keyline::Resource
-    end
+    include Keyline::Resource
 
     def path
       Array.new.tap do |segments|

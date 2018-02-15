@@ -2,9 +2,9 @@ module Keyline
   class MasterSignature
     include Resource
     include Writeable::Resource
-  
-    attributes :name, :mode, :folding_pattern, :layout, :first_page, :last_page
-    writeable_attributes :name, :mode, :first_page, :last_page, :layout
+
+    attributes :name, :mode, :kind, :folding_pattern, :layout, :first_page, :last_page
+    writeable_attributes :name, :mode, :kind, :folding_pattern, :layout, :first_page, :last_page
     associations :signatures
 
     def box

@@ -45,7 +45,7 @@ module Keyline
       end
 
       def update(attributes = {})
-        @attributes.merge!(attributes)
+        self.attributes = attributes
 
         perform_request do
           # PATCH requests usually return 204 No Content, so don't assign the response to attributes
@@ -61,11 +61,15 @@ module Keyline
       end
 
       def attributes=(attributes)
-        @attributes = attributes
+        @attributes.merge!(attributes)
       end
 
       def persisted?
         self.id.present?
+      end
+
+      def new_record?
+        !persisted?
       end
 
       def valid?

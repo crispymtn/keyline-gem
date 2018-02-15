@@ -61,7 +61,7 @@ module Keyline
       end
 
       def attributes=(attributes)
-        @attributes.merge!(attributes)
+        @attributes.merge!(attributes.stringify_keys!)
       end
 
       def persisted?

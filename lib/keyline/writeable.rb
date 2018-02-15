@@ -44,7 +44,9 @@ module Keyline
         end
       end
 
-      def update
+      def update(attributes = {})
+        @attributes.merge!(attributes)
+
         perform_request do
           # PATCH requests usually return 204 No Content, so don't assign the response to attributes
           Keyline.client.perform_request(:patch, self.path_for_update, payload: attributes_for_write)
@@ -97,7 +99,7 @@ module Keyline
       end
 
       def attributes_for_write
-        # Consider all attribute= functoins as writable
+        # Consider all attribute= functions as writable
         # attributes that need to be send over the wire
         {
           self.name_in_params => self.writeable_attributes

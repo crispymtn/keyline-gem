@@ -28,6 +28,10 @@ module Keyline
       @materials ||= Collection.new(-> { client.perform_request(:get, Keyline::Material.path) }, Keyline::Material)
     end
 
+    def material_storage_areas
+      @material_storage_areas ||= Collection.new(-> { client.perform_request(:get, Keyline::MaterialStorageArea.path) }, Keyline::MaterialStorageArea)
+    end
+
     def orders
       @orders ||= Collection.new(-> { client.perform_request(:get, Keyline::Order.path) }, Keyline::Order)
     end

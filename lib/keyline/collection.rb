@@ -13,7 +13,9 @@ module Keyline
     end
 
     def find(id)
-      @resource_klass.from_hash(Keyline.client.perform_request(:get, "#{@resource_klass.path}/#{id}"), @owner)
+      @resource_klass.from_hash(
+        Keyline.client.perform_request(:get, "#{@resource_klass.path_for_show(@owner)}/#{id}"),
+        @owner)
     end
 
     def objects
@@ -37,6 +39,10 @@ module Keyline
 
     def [](index)
       objects[index]
+    end
+
+    def size
+      length
     end
 
     def length

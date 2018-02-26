@@ -15,7 +15,7 @@ module Keyline
     end
 
     def path_for_index
-      "sales/orders/#{self.parent&.id}/products"
+      path_for_create
     end
   end
 end

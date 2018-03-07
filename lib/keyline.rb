@@ -40,8 +40,8 @@ module Keyline
       @products ||= Collection.new(-> { client.perform_request(:get, Keyline::Product.path) }, Keyline::Product)
     end
 
-    def stock_papers
-      @stock_papers ||= Collection.new(-> { client.perform_request(:get, Keyline::StockPaper.path) }, Keyline::StockPaper)
+    def stock_substrates
+      @stock_substrates ||= Collection.new(-> { client.perform_request(:get, Keyline::StockSubstrate.path) }, Keyline::StockSubstrate)
     end
 
     def stock_finishings

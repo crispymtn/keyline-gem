@@ -42,10 +42,14 @@ module Keyline
 
             # Singleton resources will have different accessors than
             # collection resources, since they return the resource
-            # right away, whereas collection resources return a collection
-            # proxy object with lazy loading
+            # right away (or nil), whereas collection resources return
+            # a collection proxy object for lazy loading
             @children[association.to_s] ||= if klass.singleton?
-              klass.new(Keyline.client.perform_request(:get, klass.path_for_show(self)), self)
+              begin
+                klass.new(Keyline.client.perform_request(:get, klass.path_for_show(self)), self)
+              rescue Keyline::Errors::ResourceNotFoundError
+                nil
+              end
             else
               Collection.new(-> { Keyline.client.perform_request(:get, klass.path_for_index(self)) }, klass, self)
             end

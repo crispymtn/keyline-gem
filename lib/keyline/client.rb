@@ -10,6 +10,8 @@ require 'keyline/errors'
 require 'keyline/inflections'
 
 require 'keyline/resources/printery'
+require 'keyline/resources/person'
+require 'keyline/resources/organization'
 require 'keyline/resources/order'
 require 'keyline/resources/print_data_file'
 require 'keyline/resources/print_data_erratum'

@@ -20,6 +20,14 @@ module Keyline
       @printery ||= Keyline::Printery.new(client.perform_request(:get, Keyline::Printery.path))
     end
 
+    def organizations
+      @organizations ||= Collection.new(-> { client.perform_request(:get, Keyline::Organization.path) }, Keyline::Organization)
+    end
+
+    def people
+      @people ||= Collection.new(-> { client.perform_request(:get, Keyline::Person.path) }, Keyline::Person)
+    end
+
     def suppliers
       @suppliers ||= Collection.new(-> { client.perform_request(:get, Keyline::Supplier.path) }, Keyline::Supplier)
     end

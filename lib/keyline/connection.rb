@@ -11,8 +11,9 @@ module Keyline
     end
 
     def perform_request(method, url, options = {})
-      connection = Faraday.new
+      connection  = Faraday.new
       request_url = "#{@host}#{@base_uri}#{url}"
+
       response = connection.send(method) do |request|
         set_headers(request)
         request.url(request_url)

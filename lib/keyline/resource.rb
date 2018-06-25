@@ -17,9 +17,13 @@ module Keyline
         data.slice(*associations).each do |association, objects|
           klass = "Keyline::#{association.classify}".constantize
 
-          resource.instance_variable_get(:@children)[association] = Collection.new(
-            -> { Keyline.client.perform_request(:get, klass.path_for_index(self)) },
-            klass, resource, objects)
+          if klass.singleton?
+            resource.instance_variable_get(:@children)[association] = klass.from_hash(objects, self)
+          else
+            resource.instance_variable_get(:@children)[association] = Collection.new(
+              -> { Keyline.client.perform_request(:get, klass.path_for_index(self)) },
+              klass, resource, objects)
+          end
         end
 
         return resource

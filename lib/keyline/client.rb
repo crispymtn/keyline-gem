@@ -44,6 +44,7 @@ require 'keyline/resources/stock_substrate'
 require 'keyline/resources/stock_product'
 require 'keyline/resources/supplier'
 require 'keyline/resources/supplier_contact'
+require 'keyline/resources/parcel'
 
 module Keyline
   class Client

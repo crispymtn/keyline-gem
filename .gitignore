@@ -10,3 +10,4 @@
 /.byebug_history
 .env
 .DS_Store
+.gem

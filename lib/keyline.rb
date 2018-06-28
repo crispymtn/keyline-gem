@@ -59,5 +59,9 @@ module Keyline
     def stock_products
       @stock_products ||= Collection.new(-> { client.perform_request(:get, Keyline::StockProduct.path) }, Keyline::StockProduct)
     end
+
+    def parcels
+      @parcels ||= Collection.new(-> { client.perform_request(:get, Keyline::Parcel.path) }, Keyline::Parcel)
+    end
   end
 end

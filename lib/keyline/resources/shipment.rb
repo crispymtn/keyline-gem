@@ -3,7 +3,7 @@ module Keyline
     include SingletonResource
     include Writeable::Resource
 
-    attributes :carrier_id, :delivery_contact_phone, :delivery_contact_email, :pick_up_at
+    attributes :reference, :carrier_id, :delivery_contact_phone, :delivery_contact_email, :pick_up_at
     writeable_attributes :carrier_id, :delivery_contact_phone, :delivery_contact_email, :pick_up_at
 
     associations :shipment_address

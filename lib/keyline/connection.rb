@@ -1,7 +1,7 @@
 require 'faraday'
 
 module Keyline
-  module Connection
+  class Connection
     attr_reader :token, :host, :base_uri
 
     def initialize(options = {})

@@ -48,6 +48,15 @@ require 'keyline/resources/parcel'
 
 module Keyline
   class Client
-    include Keyline::Connection
+    attr_reader :connection
+    delegate :perform_request, to: :connection
+
+    def initialize(options = {})
+      @connection = Keyline::Connection.new(options)
+    end
+
+    def connection_valid?
+      perform_request(:get, 'configuration/printery') ? true : false
+    end
   end
 end

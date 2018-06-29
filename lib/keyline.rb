@@ -4,6 +4,9 @@ require 'keyline/client'
 
 module Keyline
   class << self
+
+    delegate :connection_valid?, to: :client
+
     def client(options = {})
       if options.any?
         @client = Keyline::Client.new(options)
@@ -12,8 +15,23 @@ module Keyline
       end
     end
 
-    def connection_valid?
-      client.perform_request(:get, 'configuration/printery') ? true : false
+    def client=(client)
+      @client = client
+    end
+
+    def with_connection(token: nil, host: nil)
+      if token || host
+        token ||= Keyline.client.connection.token
+        host ||= Keyline.client.connection.host
+        new_client = Keyline::Client.new(token: token, host: host)
+        raise ArgumentError.new "Can't connect to Keyline API at #{new_client.host} with given connection details!" unless new_client.connection_valid?
+
+        previous_client = Keyline.client
+        Keyline.client = new_client
+      end
+      yield
+    ensure
+      Keyline.client = previous_client if previous_client
     end
 
     def printery

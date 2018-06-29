@@ -1,7 +1,7 @@
 module Keyline
   class MasterSignature
-    include Resource
-    include Writeable::Resource
+    include Jeweler::Resource
+    include Jeweler::Writeable::Resource
 
     attributes :name, :mode, :kind, :folding_pattern, :layout, :first_page, :last_page
     writeable_attributes :name, :mode, :kind, :folding_pattern, :layout, :first_page, :last_page

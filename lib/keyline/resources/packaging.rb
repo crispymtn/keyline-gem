@@ -1,7 +1,7 @@
 module Keyline
   class Packaging
-    include Resource
-    include Writeable::Resource
+    include Jeweler::Resource
+    include Jeweler::Writeable::Resource
 
     attributes :order_id, :product_id, :target_storage_area_id,
       :shipment_id, :reference, :custom_references, :state, :description, :kind, :gurantee,
@@ -9,6 +9,6 @@ module Keyline
 
     writeable_attributes :description, :kind, :gurantee, :deposition, :labeled, :shipment_id
 
-    associations :picks, :shipment
+    #associations :picks, :shipment
   end
 end

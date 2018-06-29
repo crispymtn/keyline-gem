@@ -1,7 +1,7 @@
 module Keyline
   class ProductionPath
-    include Resource
-    include Writeable::Resource
+    include Jeweler::Resource
+    include Jeweler::Writeable::Resource
 
     attributes :state, :circulation, :selected_for_production,
       :show_in_offer, :production_costs, :costs_per_unit, :costs_per_thousand, :total,

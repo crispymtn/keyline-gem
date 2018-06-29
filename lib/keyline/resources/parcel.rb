@@ -1,22 +1,24 @@
 module Keyline
   class Parcel
-    include Resource
-    include Writeable::Resource
+    include Jeweler::Resource
+    include Jeweler::Writeable::Resource
 
     path_prefix :logistics
 
-    attributes :shipment_id, :state, :dimensions, :weight, :label_url, :tracking_url,
-      :tracking_code, :created_at, :updated_at
-
+    attributes :shipment_id, :state, :dimensions, :weight, :label_url, :tracking_url, :tracking_code, :created_at, :updated_at
     writeable_attributes :state, :tracking_code, :tracking_url, :label_url
 
-    # convenience access to nested attributes
+    ## convenience access to nested attributes
     def shipment
-      Keyline::Shipment.from_hash(self.attributes['shipment'])
+      self.attributes['shipment'].symbolize_keys.except(:address, :carrier)
     end
 
-    def shipment_address
-      Keyline::Shipment.from_hash(self.attributes['shipment']['address'])
+    def carrier
+      self.attributes['shipment']['carrier'].symbolize_keys
+    end
+
+    def address
+      self.attributes['shipment']['address'].symbolize_keys
     end
   end
 end

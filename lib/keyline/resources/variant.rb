@@ -1,7 +1,7 @@
 module Keyline
   class Variant
-    include Resource
-    include Writeable::Resource
+    include Jeweler::Resource
+    include Jeweler::Writeable::Resource
 
     attributes :name
     writeable_attributes :name

@@ -1,6 +1,6 @@
 module Keyline
   class StockFinishing
-    include Resource
+    include Jeweler::Resource
 
     attributes :kind, :common, :permitted_finishable_type, :properties
 

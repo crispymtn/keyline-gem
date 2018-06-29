@@ -1,13 +1,13 @@
 require 'vendor/box'
 
-require 'keyline/connection'
-require 'keyline/writeable'
-require 'keyline/resource'
-require 'keyline/singleton_resource'
-require 'keyline/finders'
-require 'keyline/collection'
-require 'keyline/errors'
-require 'keyline/inflections'
+require 'jeweler/client'
+require 'jeweler/connection'
+require 'jeweler/writeable'
+require 'jeweler/resource'
+require 'jeweler/singleton_resource'
+require 'jeweler/finders'
+require 'jeweler/collection'
+require 'jeweler/errors'
 
 require 'keyline/resources/printery'
 require 'keyline/resources/user'
@@ -20,8 +20,6 @@ require 'keyline/resources/print_data_erratum'
 require 'keyline/resources/product'
 require 'keyline/resources/packaging'
 require 'keyline/resources/pick'
-require 'keyline/resources/shipment'
-require 'keyline/resources/shipment_address'
 require 'keyline/resources/address'
 require 'keyline/resources/production_flow_modification'
 require 'keyline/resources/production_path'
@@ -42,21 +40,24 @@ require 'keyline/resources/material_preset'
 require 'keyline/resources/stock_finishing'
 require 'keyline/resources/stock_substrate'
 require 'keyline/resources/stock_product'
-require 'keyline/resources/supplier'
-require 'keyline/resources/supplier_contact'
+require 'keyline/resources/shipment'
+require 'keyline/resources/shipment_address'
 require 'keyline/resources/parcel'
 
 module Keyline
   class Client
-    attr_reader :connection
-    delegate :perform_request, to: :connection
+    include Jeweler::Client
+
+    base_collections :parcels, :orders, :organizations, :people, :materials, :material_storage_areas,
+      :stock_substrates, :stock_finishings, :stock_products
+
 
     def initialize(options = {})
-      @connection = Keyline::Connection.new(options)
+      super(host: options[:host], token: options[:token], base_uri: '/api/v2/')
     end
 
-    def connection_valid?
-      perform_request(:get, 'configuration/printery') ? true : false
+    def printery
+      @printery ||= Keyline::Printery.new(self, self.perform_request(:get, Keyline::Printery.path))
     end
   end
 end

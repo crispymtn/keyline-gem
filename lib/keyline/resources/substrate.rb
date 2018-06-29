@@ -1,7 +1,7 @@
 module Keyline
   class Substrate
-    include SingletonResource
-    include Writeable::Resource
+    include Jeweler::SingletonResource
+    include Jeweler::Writeable::Resource
 
     attributes :stock_substrate_id, :imposing_id, :name, :dimensions, :precut_dimensions,
       :grain, :grammage, :color_saturation, :thickness, :kind, :environmental_certification,

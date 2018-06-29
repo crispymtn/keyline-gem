@@ -1,7 +1,7 @@
 module Keyline
   class Signature
-    include Resource
-    include Writeable::Resource
+    include Jeweler::Resource
+    include Jeweler::Writeable::Resource
   
     attributes :name, :pages, :layout
     writeable_attributes :name, :pages, :layout

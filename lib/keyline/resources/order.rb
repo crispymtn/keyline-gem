@@ -1,7 +1,7 @@
 module Keyline
   class Order
-    include Resource
-    include Writeable::Resource
+    include Jeweler::Resource
+    include Jeweler::Writeable::Resource
 
     path_prefix :sales
 

@@ -1,7 +1,7 @@
 module Keyline
   class Circulation
-    include Resource
-    include Writeable::Resource
+    include Jeweler::Resource
+    include Jeweler::Writeable::Resource
 
     attributes :amount, :variant_id
     writeable_attributes :amount

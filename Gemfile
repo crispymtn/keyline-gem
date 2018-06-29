@@ -4,3 +4,5 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
 # Specify your gem's dependencies in keyline.gemspec
 gemspec
+
+gem 'rest_jeweler', github: 'crispymtn/rest_jeweler'

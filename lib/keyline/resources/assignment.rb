@@ -1,6 +1,6 @@
 module Keyline
   class Assignment
-    include Resource
+    include Jeweler::Resource
 
     attributes :role
     associations :user

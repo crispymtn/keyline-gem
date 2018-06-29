@@ -1,6 +1,6 @@
 module Keyline
   class Printery
-    include Resource
+    include Jeweler::SingletonResource
 
     path_prefix :configuration
 

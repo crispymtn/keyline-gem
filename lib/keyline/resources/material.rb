@@ -1,7 +1,6 @@
 module Keyline
   class Material
-    include Resource
-    extend  Resource::ClassMethods
+    include Jeweler::Resource
 
     path_prefix :warehouse
 

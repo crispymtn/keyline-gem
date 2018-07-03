@@ -5,7 +5,7 @@ module Keyline
 
     path_prefix :conception
     attributes :stock_product_id, :reference, :name, :kind, :custom_references
-    writeable_attributes :stock_product_id, :name, :kind, :customer_references
+    writeable_attributes :stock_product_id, :name, :kind, :custom_references
 
     associations :components, :finishings, :production_paths, :packagings, :print_data_files,
       :variants, :stock_finishings, :material_presets

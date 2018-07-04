@@ -5,6 +5,6 @@ module Keyline
 
     attributes :stock_finishing_id, :kind
     writeable_attributes :stock_finishing_id
-    associations :finishing_properties
+    associations :finishing_properties, :material_presets
   end
 end

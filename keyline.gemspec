@@ -6,8 +6,8 @@ require "keyline/version"
 Gem::Specification.new do |spec|
   spec.name          = "keyline"
   spec.version       = Keyline::VERSION
-  spec.authors       = ["Christian Weyer"]
-  spec.email         = ["cw@crispymtn.com"]
+  spec.authors       = ["Benjamin Reitzammer", "Christian Weyer"]
+  spec.email         = ["br@crispymtn.com", "cw@crispymtn.com"]
 
   spec.summary       = "Provides access to the Keyline API"
   spec.description   = "Provides access to the Keyline API"

@@ -16,6 +16,10 @@ module Keyline
       def address
         self.attributes['address'].symbolize_keys
       end
+
+      def parcels
+        self.attributes['parcels'].collect(&:symbolize_keys)
+      end
     end
   end
 end

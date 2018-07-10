@@ -9,6 +9,6 @@ module Keyline
 
     writeable_attributes :description, :kind, :gurantee, :deposition, :labeled, :shipment_id
 
-    #associations :picks, :shipment
+    associations :picks, :shipment
   end
 end

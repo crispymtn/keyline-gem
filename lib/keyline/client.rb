@@ -43,6 +43,7 @@ require 'keyline/resources/stock_product'
 require 'keyline/resources/shipment'
 require 'keyline/resources/shipment_address'
 require 'keyline/resources/parcel'
+require 'keyline/resources/logistics/shipment'
 
 module Keyline
   class Client
@@ -58,6 +59,14 @@ module Keyline
 
     def printery
       @printery ||= Keyline::Printery.new(self, self.perform_request(:get, Keyline::Printery.path))
+    end
+
+    def logistics_shipments
+      Jeweler::Collection.new(
+        self,
+        -> { self.perform_request(:get, Keyline::Logistics::Shipment.path_for_index(nil)) },
+        Keyline::Logistics::Shipment
+      )
     end
   end
 end

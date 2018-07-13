@@ -18,18 +18,18 @@ Or install it yourself as:
 
 ## Usage
 
-Now that you have the Keyline gem installed, you can use it to connect to your Keyline account. First you need to setup your API Key, this can be done explicitly or implicitly, by setting the ENV variable KEYLINE_API_TOKEN or by adding keyline_api_token to Rails' secrets.yml file in the config dir.
+Now that you have the Keyline gem installed, you can use it to connect to your Keyline account. First you need to create
+a client object with you respective API token.
 
 ```ruby
-# Explicitly set an API token
-Keyline.client(token: 'YOUR API KEY GOES HERE')
+client = Keyline::Client.new(host: ENV.fetch('KEYLINE_HOST', 'https://api.keyline-mis.com'), token: ENV['KEYLINE_API_TOKEN'])
 ```
 
 And let's create an order with a product that has a component. Also the product will have a finishing with some params we need to adjust.
 
 ```ruby
 # Create the order
-order = Keyline.orders.create(customer_id: 1337)
+order = client.orders.create(customer_id: 1337)
 
 # Add a empty product
 product = order.products.create(name: 'New product', category: 'book')

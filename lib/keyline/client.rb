@@ -44,13 +44,14 @@ require 'keyline/resources/shipment'
 require 'keyline/resources/shipment_address'
 require 'keyline/resources/parcel'
 require 'keyline/resources/logistics/shipment'
+require 'keyline/resources/stock_task'
 
 module Keyline
   class Client
     include Jeweler::Client
 
     base_collections :parcels, :orders, :organizations, :people, :materials, :material_storage_areas,
-      :stock_substrates, :stock_finishings, :stock_products
+      :stock_substrates, :stock_finishings, :stock_products, :stock_tasks
 
 
     def initialize(options = {})

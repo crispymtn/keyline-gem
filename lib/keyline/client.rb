@@ -45,6 +45,8 @@ require 'keyline/resources/shipment_address'
 require 'keyline/resources/parcel'
 require 'keyline/resources/logistics/shipment'
 require 'keyline/resources/stock_task'
+require 'keyline/resources/raw_material_requirement'
+require 'keyline/resources/processing_requirement'
 
 module Keyline
   class Client

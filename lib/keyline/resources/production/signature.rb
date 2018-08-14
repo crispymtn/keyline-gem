@@ -1,4 +1,4 @@
-module Keyline
+module Keyline::Production
   class Signature
     include Jeweler::Resource
 

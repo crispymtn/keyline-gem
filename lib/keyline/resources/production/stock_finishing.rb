@@ -1,4 +1,4 @@
-module Keyline:Production
+module Keyline::Production
   class StockFinishing
     include Jeweler::Resource
 

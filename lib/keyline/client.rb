@@ -57,6 +57,8 @@ require 'keyline/resources/production/substrate'
 require 'keyline/resources/production/imposing'
 require 'keyline/resources/production/master_signature'
 require 'keyline/resources/production/signature'
+require 'keyline/resources/production/material_demand'
+require 'keyline/resources/production/task'
 
 module Keyline
   class Client

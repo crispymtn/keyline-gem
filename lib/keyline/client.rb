@@ -47,6 +47,21 @@ require 'keyline/resources/logistics/shipment'
 require 'keyline/resources/stock_task'
 require 'keyline/resources/raw_material_requirement'
 require 'keyline/resources/processing_requirement'
+require 'keyline/resources/production/product'
+require 'keyline/resources/production/print_data_file'
+require 'keyline/resources/production/packaging'
+require 'keyline/resources/production/production_path'
+require 'keyline/resources/production/component'
+require 'keyline/resources/production/finishing'
+require 'keyline/resources/production/variant'
+require 'keyline/resources/production/material_preset'
+require 'keyline/resources/production/stock_finishing'
+require 'keyline/resources/production/substrate'
+require 'keyline/resources/production/imposing'
+require 'keyline/resources/production/master_signature'
+require 'keyline/resources/production/signature'
+require 'keyline/resources/production/material_demand'
+require 'keyline/resources/production/task'
 
 module Keyline
   class Client
@@ -62,6 +77,15 @@ module Keyline
 
     def printery
       @printery ||= Keyline::Printery.new(self, self.perform_request(:get, Keyline::Printery.path))
+    end
+
+
+    def production_products
+      Jeweler::Collection.new(
+        self,
+        -> { self.perform_request(:get, Keyline::Production::Product.path_for_index(nil)) },
+        Keyline::Production::Product
+      )
     end
 
     def logistics_shipments

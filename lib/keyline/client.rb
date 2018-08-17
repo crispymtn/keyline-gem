@@ -44,6 +44,9 @@ require 'keyline/resources/shipment'
 require 'keyline/resources/shipment_address'
 require 'keyline/resources/parcel'
 require 'keyline/resources/logistics/shipment'
+require 'keyline/resources/stock_task'
+require 'keyline/resources/raw_material_requirement'
+require 'keyline/resources/processing_requirement'
 require 'keyline/resources/production/product'
 require 'keyline/resources/production/print_data_file'
 require 'keyline/resources/production/packaging'
@@ -65,7 +68,7 @@ module Keyline
     include Jeweler::Client
 
     base_collections :parcels, :orders, :organizations, :people, :materials, :material_storage_areas,
-      :stock_substrates, :stock_finishings, :stock_products
+      :stock_substrates, :stock_finishings, :stock_products, :stock_tasks
 
 
     def initialize(options = {})

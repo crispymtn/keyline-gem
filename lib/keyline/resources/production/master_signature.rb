@@ -3,6 +3,7 @@ module Keyline::Production
     include Jeweler::Resource
 
     attributes :name, :mode, :kind, :folding_pattern, :layout, :first_page, :last_page
+
     associations :signatures
 
     def box

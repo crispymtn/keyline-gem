@@ -2,9 +2,8 @@ module Keyline::Production
   class Component
     include Jeweler::Resource
 
-    attributes :name, :number_of_pages, :closed_dimensions, :page_arrangement, :front_colors, :back_colors
+    attributes :name, :number_of_pages, :closed_dimensions, :opened_dimensions, :page_arrangement, :front_colors, :back_colors
 
-    associations :finishings, :imposings, :print_data_files, :stock_finishings,
-      :desired_paper_properties, :material_presets, :substrate
+    associations :finishings, :imposing, :print_data_files, :master_signatures, :sheets
   end
 end

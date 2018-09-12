@@ -14,6 +14,8 @@ require 'keyline/resources/user'
 require 'keyline/resources/person'
 require 'keyline/resources/organization'
 require 'keyline/resources/assignment'
+require 'keyline/resources/business_unit'
+require 'keyline/resources/carrier'
 require 'keyline/resources/order'
 require 'keyline/resources/print_data_file'
 require 'keyline/resources/print_data_erratum'
@@ -72,8 +74,7 @@ module Keyline
     include Jeweler::Client
 
     base_collections :parcels, :orders, :organizations, :people, :materials, :material_storage_areas,
-      :stock_substrates, :stock_finishings, :stock_products, :stock_tasks
-
+      :stock_substrates, :stock_finishings, :stock_products, :stock_tasks, :business_units
 
     def initialize(options = {})
       super(host: options[:host], token: options[:token], base_uri: '/api/v2/')
@@ -82,7 +83,6 @@ module Keyline
     def printery
       @printery ||= Keyline::Printery.new(self, self.perform_request(:get, Keyline::Printery.path))
     end
-
 
     def production_products
       Jeweler::Collection.new(

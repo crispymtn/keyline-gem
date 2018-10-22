@@ -11,7 +11,7 @@ module Keyline
       :customer_id, :customer_type, :contact_id
 
     writeable_attributes :confirmed_at, :state, :due_at, :custom_references, :custom_offer_text,
-      :customer_id, :customer_type, :contact_id
+      :customer_id, :customer_type, :contact_id, :business_unit_id
 
     associations :assignments, :products, :packagings
   end

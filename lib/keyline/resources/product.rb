@@ -4,8 +4,11 @@ module Keyline
     include Jeweler::Writeable::Resource
 
     path_prefix :conception
-    attributes :stock_product_id, :reference, :name, :kind, :custom_references
-    writeable_attributes :stock_product_id, :name, :kind, :custom_references
+    attributes :stock_product_id, :reference, :name, :kind, :custom_references,
+      :custom_description
+
+    writeable_attributes :stock_product_id, :name, :kind, :custom_references,
+      :custom_description
 
     associations :components, :finishings, :production_paths, :packagings, :print_data_files,
       :variants, :stock_finishings, :material_presets

@@ -3,7 +3,9 @@ module Keyline
     include Jeweler::SingletonResource
     include Jeweler::Writeable::Resource
 
-    attributes :addressable_id, :addressable_type, :addressee, :street, :number, :zip_code, :town, :country_code, :state_or_province
+    attributes :addressable_id, :addressable_type, :addressee, :street, :number,
+      :zip_code, :town, :country_code, :state_or_province, :fingerprint
+
     writeable_attributes :addressee, :street, :number, :zip_code, :town, :country_code, :state_or_province
 
     def name_in_path

@@ -5,11 +5,13 @@ module Keyline
 
     path_prefix :customer_relations
 
-    attributes :name, :reference, :email, :debitor_identifier, :creditor_identifier,
-      :preferred_locale, :tax_identifier, :deleted_at
+    attributes :salutation, :first_name, :name, :reference, :email, :debitor_identifier,
+      :creditor_identifier, :preferred_locale, :tax_identifier,
+      :phone, :fax, :mobile, :deleted_at
 
-    writeable_attributes :name, :reference, :email, :debitor_identifier,
-      :creditor_identifier, :preferred_locale, :tax_identifier
+    writeable_attributes :salutation, :first_name, :name, :reference, :email,
+      :debitor_identifier, :creditor_identifier, :preferred_locale, :tax_identifier,
+      :phone, :fax, :mobile
 
     def path
       Array.new.tap do |segments|

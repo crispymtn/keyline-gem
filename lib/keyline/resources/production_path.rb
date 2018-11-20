@@ -12,5 +12,9 @@ module Keyline
       :keep_total, :margin_stepping
 
     associations :circulations, :production_flow_modifications
+
+    def conceptualize!
+      @client.send(:send_request, :patch, self.path_for_update + '/conceptualize')
+    end
   end
 end

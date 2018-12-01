@@ -1,6 +1,6 @@
 module Keyline::Production
   class Customer
-    include Jeweler::SingletonResource
+    include Jeweler::Resource
 
     attributes :name, :reference
   end

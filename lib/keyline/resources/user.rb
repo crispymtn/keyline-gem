@@ -1,6 +1,6 @@
 module Keyline
   class User
-    include Jeweler::SingletonResource
+    include Jeweler::Resource
 
     attributes :first_name, :name, :email
   end

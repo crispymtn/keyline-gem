@@ -14,5 +14,6 @@ module Keyline
       :customer_id, :customer_type, :contact_id, :business_unit_id
 
     associations :assignments, :products, :packagings
+    singleton_associations :address
   end
 end

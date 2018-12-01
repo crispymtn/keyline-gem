@@ -3,6 +3,6 @@ module Keyline
     include Jeweler::Resource
 
     attributes :role
-    associations :user
+    singleton_associations :user
   end
 end

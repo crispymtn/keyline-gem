@@ -6,6 +6,7 @@ module Keyline::Production
       :shipment_id, :reference, :custom_references, :state, :description, :kind, :gurantee,
       :amount, :remainder, :completed_amount, :deposition, :labeled
 
-    associations :picks, :shipment
+    associations :picks
+    singleton_associations :shipment
   end
 end

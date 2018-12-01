@@ -1,6 +1,6 @@
 module Keyline::Production
   class SelectedProductionPath
-    include Jeweler::SingletonResource
+    include Jeweler::Resource
 
     attributes :state, :circulation, :selected_for_production,
       :show_in_offer, :production_costs, :costs_per_unit, :costs_per_thousand, :total,

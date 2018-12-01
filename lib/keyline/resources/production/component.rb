@@ -4,6 +4,7 @@ module Keyline::Production
 
     attributes :name, :number_of_pages, :closed_dimensions, :opened_dimensions, :page_arrangement, :front_colors, :back_colors
 
-    associations :finishings, :imposing, :print_data_files, :master_signatures, :sheets, :substrate
+    associations :finishings, :print_data_files, :master_signatures, :sheets
+    singleton_associations :imposing, :substrate
   end
 end

@@ -1,6 +1,6 @@
 module Keyline
   class ShipmentAddress
-    include Jeweler::SingletonResource
+    include Jeweler::Resource
     include Jeweler::Writeable::Resource
 
     attributes :addressable_id, :addressable_type, :addressee, :street, :number,

@@ -11,6 +11,7 @@ module Keyline
       :imposing_mode, :preferred_printer_id, :default_margin, :default_stock_folding_pattern_id,
       :auto_signature_generation, :disable_folding, :allow_printing_on_gripper
 
-    associations :master_signatures, :substrate
+    associations :master_signatures
+    singleton_associations :substrate
   end
 end

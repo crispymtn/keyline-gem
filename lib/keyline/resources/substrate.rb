@@ -1,6 +1,6 @@
 module Keyline
   class Substrate
-    include Jeweler::SingletonResource
+    include Jeweler::Resource
     include Jeweler::Writeable::Resource
 
     attributes :stock_substrate_id, :imposing_id, :name, :dimensions, :precut_dimensions,

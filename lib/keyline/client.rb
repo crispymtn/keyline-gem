@@ -10,6 +10,7 @@ require 'jeweler/collection'
 require 'jeweler/errors'
 
 require 'keyline/resources/printery'
+require 'keyline/resources/means_of_production'
 require 'keyline/resources/user'
 require 'keyline/resources/person'
 require 'keyline/resources/organization'

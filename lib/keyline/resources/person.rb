@@ -3,7 +3,7 @@ module Keyline
     include Jeweler::Resource
     include Jeweler::Writeable::Resource
 
-    path_prefix :customer_relations
+    path_prefix :customer_relations, overwrite_parent_path: false
 
     attributes :salutation, :first_name, :name, :reference, :email, :debitor_identifier,
       :creditor_identifier, :preferred_locale, :tax_identifier,
@@ -12,15 +12,6 @@ module Keyline
     writeable_attributes :salutation, :first_name, :name, :reference, :email,
       :debitor_identifier, :creditor_identifier, :preferred_locale, :tax_identifier,
       :phone, :fax, :mobile
-
-    def path
-      Array.new.tap do |segments|
-        segments << @parent.path if @parent
-        segments << self.class.path_prefix if !@parent
-        segments << self.name_in_path
-        segments << self.id if self.persisted?
-      end.join('/')
-    end
 
     # Provides a possiblity for the given resource
     # to overwrite paths based on HTTP verb

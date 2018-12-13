@@ -2,7 +2,7 @@ module Keyline::Production
   class Task
     include Jeweler::Resource
 
-    path_prefix '/production'
+    path_prefix :production, overwrite_parent_path: false
 
     attributes :kind, :workable_id, :workable_type, :means_of_production_id, :phase, :state,
       :outsourced, :inline, :checkpoint, :duration_for_preparations,

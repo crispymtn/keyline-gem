@@ -2,6 +2,7 @@ module Keyline
   class Order
     include Jeweler::Resource
     include Jeweler::Writeable::Resource
+    include Jeweler::Document
 
     path_prefix :sales
 
@@ -15,5 +16,13 @@ module Keyline
 
     associations :assignments, :products, :packagings
     singleton_associations :address
+
+    def offer_document
+      retrieve_document(self.path_for_show + '/offer.pdf')
+    end
+
+    def confirmation_document
+      retrieve_document(self.path_for_show + '/confirmation.pdf')
+    end
   end
 end

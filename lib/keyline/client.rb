@@ -86,7 +86,9 @@ module Keyline
     end
 
     def printery
-      @printery ||= Keyline::Printery.new(self, self.perform_request(:get, Keyline::Printery.path))
+      @printery ||= Keyline::Printery.new(self, self.perform_request(:get, '/configuration/printery')).tap do |printery|
+        printery.extend(Jeweler::SingletonResource)
+      end
     end
 
     def production_products

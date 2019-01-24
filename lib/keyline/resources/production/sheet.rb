@@ -2,7 +2,7 @@ module Keyline::Production
   class Sheet
     include Jeweler::Resource
 
-    attributes :mode, :printing_technique, :imposing_mode, :repeats,
+    attributes :mode, :printing_technique, :imposing_mode, :cutting_mode, :repeats,
       :dimensions, :grain, :layout
 
     def box

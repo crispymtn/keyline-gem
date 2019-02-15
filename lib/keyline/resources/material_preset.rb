@@ -5,5 +5,7 @@ module Keyline
 
     attributes :material_id
     writeable_attributes :material_id
+
+    singleton_associations :material
   end
 end

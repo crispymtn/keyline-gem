@@ -3,6 +3,6 @@ module Keyline::Production
     include Jeweler::Resource
 
     attributes :stock_finishing_id, :kind
-    associations :finishing_properties, :material_presets
+    associations :finishing_properties, :material_presets, :print_data_files
   end
 end

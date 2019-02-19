@@ -6,7 +6,7 @@ module Keyline
     attributes :reference, :carrier_id, :delivery_contact_phone, :incoterm,
       :delivery_contact_email, :pick_up_at
 
-    writeable_attributes :carrier_id, :delivery_contact_phone, :inco_term,
+    writeable_attributes :carrier_id, :delivery_contact_phone, :incoterm,
       :delivery_contact_email, :pick_up_at
 
     singleton_associations :address

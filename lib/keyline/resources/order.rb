@@ -9,11 +9,11 @@ module Keyline
     attributes :business_unit_id, :reference, :custom_references, :custom_offer_text,
       :costs, :due_at, :confirmed_at, :archived_at, :offer_sent_at, :cleared_at,
       :state, :shipping_costs, :mixed_shipping, :shipping_costs_billing_mode,
-      :customer_id, :customer_type, :contact_id
+      :customer_id, :customer_type, :contact_id, :environmental_certification
 
     writeable_attributes :confirmed_at, :state, :due_at, :custom_references, :custom_offer_text,
       :customer_id, :customer_type, :contact_id, :business_unit_id, :shipping_costs_billing_mode,
-       :shipping_costs
+       :shipping_costs, :environmental_certification
 
     associations :assignments, :products, :packagings
     singleton_associations :address

@@ -1,3 +1,4 @@
+require 'active_support/security_utils'
 require 'vendor/box'
 
 require 'jeweler/client'
@@ -9,7 +10,11 @@ require 'jeweler/finders'
 require 'jeweler/collection'
 require 'jeweler/errors'
 
+require 'keyline/errors'
+require 'keyline/event'
+
 require 'keyline/resources/printery'
+require 'keyline/resources/document_callback'
 require 'keyline/resources/means_of_production'
 require 'keyline/resources/user'
 require 'keyline/resources/person'

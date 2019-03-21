@@ -10,5 +10,6 @@ module Keyline
       :delivery_contact_email, :pick_up_at
 
     singleton_associations :address
+    associations :document_callbacks
   end
 end

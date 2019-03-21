@@ -6,8 +6,8 @@ require "keyline/version"
 Gem::Specification.new do |spec|
   spec.name          = "keyline"
   spec.version       = Keyline::VERSION
-  spec.authors       = ["Benjamin Reitzammer", "Christian Weyer"]
-  spec.email         = ["br@crispymtn.com", "cw@crispymtn.com"]
+  spec.authors       = ["Benjamin Reitzammer", "Christian Weyer", "Sascha Weidlich"]
+  spec.email         = ["br@crispymtn.com", "cw@crispymtn.com", 'sw@crispymtn.com']
 
   spec.summary       = "Provides access to the Keyline API"
   spec.description   = "Provides access to the Keyline API"
@@ -35,4 +35,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "minitest", "~> 5.0"
   spec.add_development_dependency 'pry-byebug'
   spec.add_dependency "rest_jeweler"
+  spec.add_dependency "activesupport"
 end

@@ -9,7 +9,7 @@ module Keyline
     writeable_attributes :carrier_id, :delivery_contact_phone, :incoterm,
       :delivery_contact_email, :pick_up_at
 
-    singleton_associations :address
-    associations :document_callbacks
+    singleton_associations :address, :origin_address, :carrier
+    associations :document_callbacks, :parcels
   end
 end

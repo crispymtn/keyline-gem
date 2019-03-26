@@ -9,6 +9,6 @@ module Keyline
     associations :finishings, :imposings, :print_data_files, :stock_finishings,
       :material_presets
 
-    singleton_associations :desired_paper_properties
+    singleton_associations :desired_substrate_properties
   end
 end

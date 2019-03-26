@@ -42,7 +42,7 @@ require 'keyline/resources/finishing_property'
 require 'keyline/resources/variant'
 require 'keyline/resources/circulation'
 require 'keyline/resources/substrate'
-require 'keyline/resources/desired_paper_properties'
+require 'keyline/resources/desired_substrate_properties'
 require 'keyline/resources/material'
 require 'keyline/resources/material_quote'
 require 'keyline/resources/material_storage_area'
@@ -74,16 +74,19 @@ require 'keyline/resources/production/task'
 require 'keyline/resources/production/order'
 require 'keyline/resources/production/customer'
 require 'keyline/resources/production/sheet'
+require 'keyline/resources/invoice'
 require 'keyline/resources/customer_invoice'
 require 'keyline/resources/credit_note'
 require 'keyline/resources/reversal_invoice'
+require 'keyline/resources/line_item'
+require 'keyline/resources/accounting_category'
 
 module Keyline
   class Client
     include Jeweler::Client
 
     base_collections :parcels, :orders, :organizations, :people, :materials, :material_storage_areas,
-      :stock_substrates, :stock_finishings, :stock_products, :stock_tasks, :business_units,
+      :stock_substrates, :stock_finishings, :stock_products, :stock_tasks, :business_units, :invoices,
       :customer_invoices, :credit_notes, :reversal_invoices
 
     def initialize(options = {})

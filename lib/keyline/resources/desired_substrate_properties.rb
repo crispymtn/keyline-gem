@@ -1,5 +1,5 @@
 module Keyline
-  class DesiredPaperProperties
+  class DesiredSubtrateProperties
     include Jeweler::Resource
     include Jeweler::Writeable::Resource
 

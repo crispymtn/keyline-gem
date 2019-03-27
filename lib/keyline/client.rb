@@ -78,6 +78,8 @@ require 'keyline/resources/invoice'
 require 'keyline/resources/customer_invoice'
 require 'keyline/resources/credit_note'
 require 'keyline/resources/reversal_invoice'
+require 'keyline/resources/recipient'
+require 'keyline/resources/contact'
 require 'keyline/resources/line_item'
 require 'keyline/resources/accounting_category'
 

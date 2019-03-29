@@ -9,6 +9,6 @@ module Keyline
       :billed_at, :sent_at, :custom_references, :services_performed_at, :type
 
     associations :line_items
-    singleton_associations :address, :recipient, :contact
+    singleton_associations :address, :recipient, :contact, :payment_terms
   end
 end

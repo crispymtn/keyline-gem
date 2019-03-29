@@ -82,6 +82,7 @@ require 'keyline/resources/recipient'
 require 'keyline/resources/contact'
 require 'keyline/resources/line_item'
 require 'keyline/resources/accounting_category'
+require 'keyline/resources/payment_term'
 
 module Keyline
   class Client

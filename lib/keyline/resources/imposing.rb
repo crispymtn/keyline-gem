@@ -3,15 +3,17 @@ module Keyline
     include Jeweler::Resource
     include Jeweler::Writeable::Resource
 
-    attributes :production_path_id, :printing_technique, :maximum_number_of_mups_per_sheet,
-      :imposing_mode, :cutting_mode, :preferred_printer_id, :default_margin,
-      :default_stock_folding_pattern_id, :auto_signature_generation, :disable_folding,
-      :allow_printing_on_gripper, :mup_orientation
+    attributes :production_path_id, :printing_technique,
+      :maximum_number_of_mups_per_sheet, :imposing_mode, :cutting, :cropping,
+      :cropping_margin, :connected_mups_after_cutting, :default_margin,
+      :default_stock_folding_pattern_id, :auto_signature_generation,
+      :allow_printing_on_gripper, :disable_folding, :mup_orientation
 
-    writeable_attributes :printing_technique, :maximum_number_of_mups_per_sheet,
-      :imposing_mode, :cutting_mode, :preferred_printer_id, :default_margin,
-      :default_stock_folding_pattern_id, :auto_signature_generation, :disable_folding,
-      :allow_printing_on_gripper, :mup_orientation
+    writeable_attributes :printing_technique,
+      :maximum_number_of_mups_per_sheet, :imposing_mode, :cutting, :cropping,
+      :cropping_margin, :connected_mups_after_cutting, :default_margin,
+      :default_stock_folding_pattern_id, :auto_signature_generation,
+      :allow_printing_on_gripper, :disable_folding, :mup_orientation
 
     associations :master_signatures
     singleton_associations :substrate

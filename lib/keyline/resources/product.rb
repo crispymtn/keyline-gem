@@ -5,7 +5,7 @@ module Keyline
 
     path_prefix :conception
     attributes :stock_product_id, :reference, :name, :kind, :custom_references,
-      :custom_description
+      :custom_description, :production_started_at, :production_completed_at, :cleared_at
 
     writeable_attributes :stock_product_id, :name, :kind, :custom_references,
       :custom_description

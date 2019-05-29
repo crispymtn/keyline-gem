@@ -10,7 +10,7 @@ module Keyline::Production
       :manufactured_product, :product_processing, :amount_of_wasted_manufactured_products,
       :minimum_viable_amount_of_manufactured_products, :amount_of_manufactured_products
 
-    associations :material_demands
+    associations :material_demands, :task_executions
     singleton_associations :means_of_production
   end
 end

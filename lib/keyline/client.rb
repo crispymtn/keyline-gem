@@ -71,6 +71,7 @@ require 'keyline/resources/production/master_signature'
 require 'keyline/resources/production/signature'
 require 'keyline/resources/production/material_demand'
 require 'keyline/resources/production/task'
+require 'keyline/resources/production/task_execution'
 require 'keyline/resources/production/order'
 require 'keyline/resources/production/customer'
 require 'keyline/resources/production/sheet'
@@ -90,7 +91,7 @@ module Keyline
 
     base_collections :parcels, :orders, :organizations, :people, :materials, :material_storage_areas,
       :stock_substrates, :stock_finishings, :stock_products, :stock_tasks, :business_units, :invoices,
-      :customer_invoices, :credit_notes, :reversal_invoices
+      :customer_invoices, :credit_notes, :reversal_invoices, :users
 
     def initialize(options = {})
       super(host: options[:host], token: options[:token], base_uri: '/api/v2/')
@@ -107,6 +108,14 @@ module Keyline
         self,
         -> { self.perform_request(:get, Keyline::Production::Product.path_for_index(nil)) },
         Keyline::Production::Product
+      )
+    end
+
+    def production_tasks
+      Jeweler::Collection.new(
+        self,
+        -> { self.perform_request(:get, Keyline::Production::Task.path_for_index(nil)) },
+        Keyline::Production::Task
       )
     end
 

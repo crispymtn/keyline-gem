@@ -49,6 +49,8 @@ require 'keyline/resources/material_storage_area'
 require 'keyline/resources/material_preset'
 require 'keyline/resources/stock_finishing'
 require 'keyline/resources/stock_substrate'
+require 'keyline/resources/stock_color'
+require 'keyline/resources/stock_folding_pattern'
 require 'keyline/resources/stock_product'
 require 'keyline/resources/shipment'
 require 'keyline/resources/parcel'
@@ -90,8 +92,9 @@ module Keyline
     include Jeweler::Client
 
     base_collections :parcels, :orders, :organizations, :people, :materials, :material_storage_areas,
-      :stock_substrates, :stock_finishings, :stock_products, :stock_tasks, :business_units, :invoices,
-      :customer_invoices, :credit_notes, :reversal_invoices, :users
+      :stock_substrates, :stock_finishings, :stock_products, :stock_tasks, :stock_colors,
+      :stock_folding_patterns, :business_units, :invoices, :customer_invoices, :credit_notes,
+      :reversal_invoices, :users
 
     def initialize(options = {})
       super(host: options[:host], token: options[:token], base_uri: '/api/v2/')

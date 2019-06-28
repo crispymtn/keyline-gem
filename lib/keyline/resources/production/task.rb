@@ -11,7 +11,7 @@ module Keyline::Production
       :minimum_viable_amount_of_manufactured_products, :amount_of_manufactured_products,
       :actual_duration_for_preparations, :actual_duration_for_execution, :actual_duration_for_cleanup,
       :product_id, :costs_per_hour, :material_costs, :actual_material_costs, :additional_external_costs,
-      :actual_additional_external_costs
+      :actual_additional_external_costs, :completed_at
 
     associations :material_demands, :task_executions
     singleton_associations :means_of_production

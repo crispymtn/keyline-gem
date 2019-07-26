@@ -1,6 +1,7 @@
 module Keyline
   class Invoice
     include Jeweler::Resource
+    include Jeweler::Document
 
     path_prefix :accounting
 
@@ -10,5 +11,9 @@ module Keyline
 
     associations :line_items
     singleton_associations :address, :recipient, :contact, :payment_terms
+
+    def document
+      retrieve_document(self.path_for_show + '.pdf')
+    end
   end
 end

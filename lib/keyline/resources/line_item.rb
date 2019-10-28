@@ -6,6 +6,6 @@ module Keyline
       :net, :discount, :discounted_net_total, :order_number,
       :environmental_certifications
 
-    singleton_associations :accounting_category
+    associations :accounting_categories
   end
 end

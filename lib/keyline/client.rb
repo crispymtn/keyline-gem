@@ -94,7 +94,7 @@ module Keyline
     base_collections :parcels, :orders, :organizations, :people, :materials, :material_storage_areas,
       :stock_substrates, :stock_finishings, :stock_products, :stock_tasks, :stock_colors,
       :stock_folding_patterns, :business_units, :invoices, :customer_invoices, :credit_notes,
-      :reversal_invoices, :users
+      :reversal_invoices, :users, :products
 
     def initialize(options = {})
       super(host: options[:host], token: options[:token], base_uri: '/api/v2/')

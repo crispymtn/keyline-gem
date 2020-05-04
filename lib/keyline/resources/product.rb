@@ -20,5 +20,9 @@ module Keyline
     def path_for_index
       path_for_create
     end
+
+    def selected_production_path
+      self.production_paths.select { |pp| pp.selected_for_production }.first
+    end
   end
 end

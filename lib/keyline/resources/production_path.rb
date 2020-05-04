@@ -12,7 +12,7 @@ module Keyline
     writeable_attributes :selected_for_production, :show_in_offer, :total, :margin, :discount, :outsourced,
       :keep_total, :margin_stepping
 
-    associations :circulations, :production_flow_modifications
+    associations :circulations, :production_flow_modifications, :tasks
 
     def conceptualize!
       @client.send(:send_request, :patch, self.path_for_update + '/conceptualize')

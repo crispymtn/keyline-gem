@@ -1,6 +1,7 @@
 module Keyline
   class CustomerInvoice
     include Jeweler::Resource
+    include Jeweler::Writeable::Resource
     include Jeweler::Document
 
     path_prefix :accounting
@@ -8,6 +9,9 @@ module Keyline
     attributes :recipient_id, :recipient_type, :business_unit_id, :reversed_invoice_id,
       :number, :net_total, :gross_total, :paid_at, :custom_text, :taxes, :due_at,
       :billed_at, :sent_at, :custom_references, :services_performed_at, :canceled_at
+
+    writeable_attributes :recipient_id, :business_unit_id, :number, :state, :sent_at,
+      :due_at, :custom_text, :services_performed_at
 
     associations :line_items
     singleton_associations :address, :recipient, :contact, :payment_terms

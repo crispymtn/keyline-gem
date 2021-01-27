@@ -6,8 +6,8 @@ require "keyline/version"
 Gem::Specification.new do |spec|
   spec.name          = "keyline"
   spec.version       = Keyline::VERSION
-  spec.authors       = ["Benjamin Reitzammer", "Christian Weyer", "Sascha Weidlich"]
-  spec.email         = ["br@crispymtn.com", "cw@crispymtn.com", 'sw@crispymtn.com']
+  spec.authors       = ["Christian Weyer", "Sascha Weidlich"]
+  spec.email         = ["cw@zaikio.com", 'sw@zaikio.com']
 
   spec.summary       = "Provides access to the Keyline API"
   spec.description   = "Provides access to the Keyline API"
@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.15"
+  spec.add_development_dependency "bundler", "~> 2.1"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "minitest", "~> 5.0"
   spec.add_development_dependency 'pry-byebug'

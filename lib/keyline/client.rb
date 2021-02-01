@@ -99,10 +99,13 @@ module Keyline
       :reversal_invoices, :users, :products
 
     def initialize(options = {})
-      options[:timeout] || 5
-      options[:open_timeout] || 10
-
-      super(host: options[:host], token: options[:token], base_uri: '/api/v2/', timeout: options[:timeout], open_timeout: options[:open_timeout])
+      super(
+        host: options[:host],
+        token: options[:token],
+        base_uri: '/api/v2/',
+        timeout: options[:timeout] || 5,
+        open_timeout: options[:open_timeout] || 10
+      )
     end
 
     def printery

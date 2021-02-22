@@ -7,10 +7,10 @@ module Keyline
       :show_in_offer, :production_costs, :costs_per_unit, :costs_per_thousand, :total,
       :margin, :discount, :discounted_total, :outsourced, :keep_total,
       :contribution_margin_for_inhouse_costs, :contribution_margin_for_external_costs, :margin_stepping,
-      :material_costs, :shipping_costs
+      :material_costs, :shipping_costs, :weight_calculation_mode, :product_weight
 
     writeable_attributes :selected_for_production, :show_in_offer, :total, :margin, :discount, :outsourced,
-      :keep_total, :margin_stepping
+      :keep_total, :margin_stepping, :weight_calculation_mode, :product_weight
 
     associations :circulations, :production_flow_modifications, :tasks
 

@@ -17,7 +17,7 @@ module Keyline
       :allow_printing_on_gripper, :disable_folding, :mup_orientation,
       :keep_grain_when_precutting
 
-    associations :master_signatures
+    associations :master_signatures, :sheets
     singleton_associations :substrate
   end
 end

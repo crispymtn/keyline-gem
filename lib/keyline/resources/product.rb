@@ -11,7 +11,7 @@ module Keyline
       :custom_description
 
     associations :components, :finishings, :production_paths, :packagings, :print_data_files,
-      :variants, :stock_finishings, :material_presets
+      :variants, :stock_finishings, :material_presets, :services
 
     def path_for_create
       "sales/orders/#{self.parent&.id}/products"
